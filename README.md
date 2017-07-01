@@ -98,7 +98,19 @@ menu.add_script(parent=menu,
                 tags=["gold", "silver", "bronze"])
 
 ```
+This will automatically parent it to Nuke's main menu bar.
 
+To show the menu at Maya launch you can add code to your `menu.py`. This code will need to be executed deferred to ensure it runs when Nuke main menu bar already exist. For example:
+
+```python
+import nuke
+import scriptsmenu.launchfornuke as launchfornuke
+
+def build_menu():
+    menu = launchfornuke.main(title="My Scripts")
+
+nuke.executeInMainThread(build_menu, ())
+```
 <br>
 
 ### Advanced
