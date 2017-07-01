@@ -1,0 +1,23 @@
+{
+  "Launcher": [
+    {
+      "title": "Echo command",
+      "tooltip": "Test print",
+      "command": "print('I am a tool launcher!')",
+      "sourcetype": "python",
+      "tags": ["test", "script", "echo", "command"]
+    },
+    {"title": "Echo second command",
+      "tooltip": "Test print",
+      "command": "print('I am a tool killer!')",
+      "sourcetype": "python",
+      "tags": ["test", "script", "echo", "command"]
+    },
+    {"title": "Launch script A",
+      "tooltip": "Test launcher",
+      "command": "$SCRIPTMENU/script_a.py",
+      "sourcetype": "file",
+      "tags": ["test", "script", "launch"]
+    }
+  ]
+}

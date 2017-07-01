@@ -1,0 +1,18 @@
+Modeling:
+  - title: "Script A"
+    tooltip: "print 'tools'"
+    command: 'dasdsd'
+    sourcetype: 'file'
+    tags: ["test", "script", "model", "blendshapes"]
+
+  - title: "Script b"
+    tooltip: "print 'tools'"
+    command: 'dasdsd'
+    sourcetype: 'file'
+    tags: ["test", "script", "model", "blendshapes"]
+
+  - title: "Script c"
+    tooltip: "print 'tools'"
+    command: 'dasdsd'
+    sourcetype: 'file'
+    tags: ["test", "script", "model", "blendshapes"]
