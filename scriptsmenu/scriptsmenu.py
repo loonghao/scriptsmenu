@@ -1,8 +1,8 @@
 import os
 import json
 from collections import OrderedDict
-
-from .vendor.Qt import QtWidgets, QtCore
+from .vendor import yaml
+from .vendor.Qt import QtWidgets, QtCore, QtGui
 from . import action
 
 
@@ -155,9 +155,10 @@ class ScriptsMenu(QtWidgets.QMenu):
 
         if icon:
             iconfile = os.path.expandvars(icon)
-            script_action.iconfile = iconfile
-            script_action_icon = QtWidgets.QIcon(iconfile)
-            script_action.setIcon(script_action_icon)
+            if os.path.isfile(iconfile):
+                script_action.iconfile = iconfile
+                script_action_icon = QtGui.QIcon(iconfile)
+                script_action.setIcon(script_action_icon)
 
         if label:
             script_action.label = label
@@ -220,27 +221,31 @@ def _load_configuration(path):
         raise AttributeError("Given configuration is not "
                              "a file!\n'{}'".format(path))
 
-    extension = os.path.splitext(path)[-1]
-    if extension != ".json":
+    extension = path.split('.')[-1]
+    if extension != "json" and extension != "yaml":
         raise AttributeError("Given configuration file has unsupported "
-                             "file type, provide a .json file")
+                             "file type, provide a .json file or a .yaml file ")
 
     # retrieve and store config
+    mapping = {
+        'yaml': yaml,
+        'json': json,
+    }
     with open(path, "r") as f:
-        configuration = OrderedDict(json.load(f))
+        configuration = OrderedDict(mapping.get(extension).load(f))
         return configuration
 
 
-def load_from_configuration(scriptsmenu, configuration):
+def load_from_configuration(scriptsmenu, path):
     """Process the configurations and store the configuration
     
     This creates all submenus from a configuration.json file.
 
-    :param configuration: A ScriptsMenu configuration dictionary
-    :type configuration: dict
+    :param path: json or yaml configfile
+    :type path: path
         
     """
-
+    configuration = _load_configuration(path)
     for menu_name, scripts in configuration.items():
 
         parent_menu = scriptsmenu.add_menu(parent=scriptsmenu, title=menu_name)
